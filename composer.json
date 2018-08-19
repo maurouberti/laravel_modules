@@ -1,0 +1,25 @@
+{
+    "name": "maurouberti/blog",
+    "description": "",
+    "authors": [
+        {
+            "name": "Mauro Uberti",
+            "email": "mauro.uberti@gmail.com"
+        }
+    ],
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Son\\Blog\\Providers\\BlogServiceProvider"
+            ],
+            "aliases": {
+                
+            }
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "Son\\Blog\\": ""
+        }
+    }
+}
