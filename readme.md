@@ -1,26 +1,33 @@
-#Modularização no Laravel  
+ModularizaÃ§Ã£o no Laravel
+========================  
 
-###**Passo 1** - Criar um projeto *laravel*
+---
+**Passo 1** - Criar um projeto *laravel*
+----------------------------------------
 ```
 composer create-project laravel/laravel {nome_projeto}
 ```
-Entre na diretório do projeto que acabou de criar.
+Entre na diretÃ³rio do projeto que acabou de criar.
 
 ---
-###**Passo 2** - Instalar *Laravel-Modules*
-`nwidart/laravel-modules` é um pacote do Laravel que foi criado para gerenciar módulos.
+**Passo 2** - Instalar *Laravel-Modules*
+----------------------------------------
+
+`nwidart/laravel-modules` Ã© um pacote do Laravel que foi criado para gerenciar mÃ³dulos.
 
 ---
-###Instalar
-Para instalar através do *composer*, execute o seguinte comando:
+Instalar
+--------
+Para instalar atravÃ©s do *composer*, execute o seguinte comando:
 ```
 composer require nwidart/laravel-modules
 ```
-Será criada a paste `vendor/nwidart`
+SerÃ¡ criada a paste `vendor/nwidart`
 
 ---
-###Registrar
-Registre um *provedor de serviços* e um *alias* adicionando no arquivo `config/app.php` as seguintes linhas:
+Registrar
+---------
+Registre um *provedor de serviÃ§os* e um *alias* adicionando no arquivo `config/app.php` as seguintes linhas:
 ```
 /*
  |--------------------------------------------------------------------------
@@ -48,13 +55,14 @@ Registre um *provedor de serviços* e um *alias* adicionando no arquivo `config/a
      'Module' => Nwidart\Modules\Facades\Module::class,
  ],
 ```
+
 ---
-###Publicar
-Publique o arquivo de configuração do pacote executando:
+Publicar
+--------
+Publique o arquivo de configuraÃ§Ã£o do pacote executando:
 ```
 php artisan vendor:publish --provider="Nwidart\Modules\LaravelModulesServiceProvider"
 ```
-
 No arquivo `config/moduloes.php` que foi criado, altere o nomespace:
 ```
 /*
@@ -69,8 +77,9 @@ No arquivo `config/moduloes.php` que foi criado, altere o nomespace:
 ```
 
 ---
-###Autoloading
-Por padrão, as classes do módulo não são carregadas automaticamente. Para carregar automaticamente os módulos altere o arquivo `composer.json`:
+Autoloading
+-----------
+Por padrÃ£o, as classes do mÃ³dulo nÃ£o sÃ£o carregadas automaticamente. Para carregar automaticamente os mÃ³dulos altere o arquivo `composer.json`:
 ```
 "autoload": {
     "psr-4": {
@@ -89,26 +98,29 @@ php artisan module
 ```
 
 ---
-###**Passo 3**: Criar módulo
-Criar módulo usando o comando:
+**Passo 3**: Criar mÃ³dulo
+-------------------------
+Criar mÃ³dulo usando o comando:
 ```
 php artisan module:make {nome_modulo}
 ```
-Será criado uma pasta `Modules/{nome_modulo}`
+SerÃ¡ criado uma pasta `Modules/{nome_modulo}`
 
 ---
-###Testar
+Testar
+------
 Suba o servidor
 ```
 php artisan serve
 ```
-Acesse o novo módulo pelo browser:
+Acesse o novo mÃ³dulo pelo browser:
 ```
 http://localhost:8000/blog
 ```
 
 ---
-###**Passo 4**: Criar banco de dados
+**Passo 4**: Criar banco de dados
+---------------------------------
 Crie um bando de dados:
 ```
 echo "create database {nome_banco_dados};" | mysql -u root -p
@@ -124,13 +136,13 @@ DB_PASSWORD={senha_banco_dados}
 ```
 
 ---
-###**Passo 5**: Criar migrations
-
+**Passo 5**: Criar migrations
+-----------------------------
 Para criar uma *migration* execute o camando artisan do `nwidart/laravel-modules`:
 ```
 php artisan module:make-migration create_{nome_tabela}_table {none_modulo}
 ```
-Será criado uma *migration* na pasta `Modules/{nome_modulo}/Database/Migrations`, altere o arquivo criado com os campos necessários.
+SerÃ¡ criado uma *migration* na pasta `Modules/{nome_modulo}/Database/Migrations`, altere o arquivo criado com os campos necessÃ¡rios.
 
 Execute a *migration* com o camando artisan do `nwidart/laravel-modules`:
 ```
@@ -138,21 +150,22 @@ php artisan module:migrate {nome_modulo}
 ```
 
 ---
-###**Passo7**: Criar model
+**Passo7**: Criar model
+-----------------------
 Para criar uma *model* execute o camando artisan do `nwidart/laravel-modules`:
 ```
 php artisan module:make-model {nome_model} {nome_modulo}
 ```
-Será criado uma *model* na pasta **Modules/{nome_modulo}/Entities/{nome_model}
-
+SerÃ¡ criado uma *model* na pasta **Modules/{nome_modulo}/Entities/{nome_model}
 
 ---
-###**Passo 8**: Criar seed
+**Passo 8**: Criar seed
+-----------------------
 Para criar uma *seed* execute o camando artisan do `nwidart/laravel-modules`:
 ```
 php artisan module:make-seed {nome_seed} {nome_modulo}
 ```
-Será criado uma *seed* na pasta `Modules/{nome_modulo}/Database/Seeders/`, altere o arquivo criado e registre ela no arquivo`DatabaseSeeder.php` do módulo
+SerÃ¡ criado uma *seed* na pasta `Modules/{nome_modulo}/Database/Seeders/`, altere o arquivo criado e registre ela no arquivo`DatabaseSeeder.php` do mÃ³dulo
 ```
 $this->call("{nome_seed}");
 ```
@@ -166,23 +179,26 @@ php artisan module:seed --class={nome_seed} {nome_modulo}
 ```
 
 ---
-###**Passo 9**: Criar controller
+**Passo 9**: Criar controller
+-----------------------------
 Para criar uma *controller* execute o camando artisan do `nwidart/laravel-modules`:
 ```
 php artisan module:make-controller {nome_controller} {nome_modulo}
 ```
-Será criado um *controller* na pasta `Modules/{nome_modulo}/Http/Controllers`
+SerÃ¡ criado um *controller* na pasta `Modules/{nome_modulo}/Http/Controllers`
 
 ---
-###**Passo 10**: Arquivo de rota
-O arquivo *route* do módulo: 
+**Passo 10**: Arquivo de rota
+-----------------------------
+O arquivo *route* do mÃ³dulo: 
 ```
 Modules/{nome_modulo}/Http/routes.php
 ```
 
 ---
-###**Passo 11**: Publicar com git
-Alterar o arquivo `Modules/{nome_modulo}/composer.json` do módulo:
+**Passo 11**: Publicar com git
+------------------------------
+Alterar o arquivo `Modules/{nome_modulo}/composer.json` do mÃ³dulo:
 ```
 {
     "name": "{usuario_git}/blog",
@@ -210,44 +226,88 @@ Alterar o arquivo `Modules/{nome_modulo}/composer.json` do módulo:
     }
 }
 ```
-Entrar no diretório do módulo `{projeto}/Modules/{nome_modulo}`, e executar o comando do *git* para inicializar o repositório do git:
+Entrar no diretÃ³rio do mÃ³dulo `{projeto}/Modules/{nome_modulo}`, e executar o comando do *git* para inicializar o repositÃ³rio do git:
 ```
 git init
 ```
 > Execute o comando **git status**
-
 Para adicionar arquivos, executar o comando:
 ```
 git add .
 ```
-
 Dar um *Commit* nos arquivos:
 ```
 git commit -m "{descricao}"
 ```
-
-> Talvez não tenha registrado as credenciais no *git*
+> Talvez nÃ£o tenha registrado as credenciais no *git*
 > git config --global user.name "{nome}"
 > git config --global user.email "{email}"
 > git checkout -b "master"
 
 ---
 Entrar na conta do github
-
 >https://www.github.com
-
-Criar um repositório
+Criar um repositÃ³rio
 
 ---
 Enviar os arquivos com os camandos do *git*
 ```
-git remote add origin https://github.com/{usuario_git}/{nome_repositorio}.git
+git remote add origin https://github.com/{usuario_git}/{repositorio_git}.git
 git push -u origin master
+```
+Para colocar versÃ£o no *github*, abrir a opÃ§Ã£o **releases**, clicar no botÃ£o **createa new realise**, no campo **tag version** colocar *v1.0.0* e clicar no botÃ£o **Publish realise**
+
+---
+**Passo 12**: Criando pacote com packagist
+------------------------------------------
+Entre na conta do packagist
+> https://www.packagist.org
+Na opÃ§Ã£o **submit** coloque o link do seu projeto no *git*
+> Repository URL (Git/Svn/Hg)
+> ex.: https://github.com/{usuario_git}/{repositorio_git}
+Clique em **check**, e se der tudo certo clicque em **submit**
+Agora ir na opÃ§Ã£o **profile** e no botÃ£o **show api token** para gerar o token do packagist
+
+---
+No *github*, para ativar o auto-update, selecione **settings**, depois **Integrations & services**, clique no botÃ£o **add service** e localize **packagist**, no campo **token** cole o *token* gerado no *packagist* e clique no botÃ£o **add service**, na tela que aparecer clique no botÃ£o **edit** do packagiste depois no botÃ£o **Test service**, aparecera a seguinte mensagem:
+> Okay, the test payload is on its way. 
+Note que no site do *packagist* a mensagem:
+> This package is not auto-updated. Please set up the GitHub Service Hook for Packagist so that it gets updated
+> whenever you push!
+vai desaparecer, e note o comando do *composer* para instalar
+```
+composer require maurouberti/blog
+```
+
+---
+**Passo 13**: Instalar mÃ³dulo criado em outro projeto
+-----------------------------------------------------
+Repita o **Passo 1** e **Passo 2** para criar um novo projeto
+Para instalar mÃ³dulo criado atravÃ©s do *composer*, execute o seguinte comando:
+```
+composer require maurouberti/blog
+```
+ou pelo *github*:
+```
+php artisan module:install maurouberti/laravel_modules --type=github
+```
+ou se tiver feito o *packagist*:
+```
+php artisan module:install maurouberti/blog
+```
+Para listar os modulos:
+```
+php artisan module:list
 ```
 
 
+
+
+
+
 ---
-#Sequência 
+SequÃªncia
+=========
 Comandos:
 ```
 composer create-project laravel/laravel projeto1
@@ -255,7 +315,7 @@ cd projeto1
 composer require nwidart/laravel-modules
 ```
 
-Registrar provedor de serviço e um alias no arquivo `config/app.php` :
+Registrar provedor de serviÃ§o e um alias no arquivo `config/app.php` :
 ```
 'providers' => [
     Nwidart\Modules\LaravelModulesServiceProvider::class,
@@ -344,5 +404,4 @@ git add .
 git commit -m "Primeiro commit"
 git remote add origin https://github.com/maurouberti/laravel_modules.git
 git push -u origin master
-
 ```

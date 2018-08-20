@@ -16,7 +16,7 @@ class BlogDatabaseSeeder extends Seeder
     {
         Model::unguard();
 
-//        $this->call("PostsTableSeeder");
+        $this->call(PostsTableSeeder::class);
         // $this->call("OthersTableSeeder");
     }
 }

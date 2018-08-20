@@ -4,6 +4,12 @@
     <h1>Hello World</h1>
 
     <p>
-        This view is loaded from module: {!! config('blog.name') !!}
+        Módulo: {!! config('blog.name') !!}
     </p>
+    {{ count($Posts) }}
+    <ul>
+    @foreach($Posts as $Post)
+        <li>{{ $Post->title }} - {{ $Post->author }}</li>
+    @endforeach
+    </ul>
 @stop
